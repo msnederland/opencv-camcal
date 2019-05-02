@@ -20,8 +20,6 @@ while True:
     blur = cv2.medianBlur(hsv, 3)
     # blur = cv2.bilateralFilter(hsv, 9, 350, 350)
 
-    # lower_red = np.array([0,187,101])
-    # upper_red = np.array([119,250,179])
     lower_red = np.array([0,193,125])
     upper_red = np.array([3,255,255])
 
@@ -52,7 +50,6 @@ while True:
             rect = cv2.minAreaRect(cnt)
             box = cv2.boxPoints(rect)
             box = np.int0(box)
-            # cv2.drawContours(frame, [box], 0, (0, 0, 255))
 
     for cnt in contours_green:
 
@@ -66,40 +63,24 @@ while True:
             rect = cv2.minAreaRect(cnt)
             box = cv2.boxPoints(rect)
             box = np.int0(box)
-            # cv2.drawContours(frame, [box], 0, (0, 0, 255))
 
     for cnt in contours_blue:
 
         area = cv2.contourArea(cnt)
 
         if(area > 1000):
-            print("found one!")
 
             x, y, w, h = cv2.boundingRect(cnt)
             cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 3)
             rect = cv2.minAreaRect(cnt)
             box = cv2.boxPoints(rect)
             box = np.int0(box)
-            # cv2.drawContours(frame, [box], 0, (255, 0, 0))
 
     cv2.imshow("contours", frame)
 
     key = cv2.waitKey(1)
     if key == 27:
         break
-
-    # cv2.namedWindow('Frame',cv2.WINDOW_NORMAL)
-    # cv2.namedWindow('Mask',cv2.WINDOW_NORMAL)
-
-    # mask_small = cv2.resize(mask,(1600,1200))
-    # frame_small = cv2.resize(frame,(1600,1200))
-
-    # cv2.imshow("Frame", frame_small)
-    # cv2.imshow("Mask", mask_small)
-
-    # key = cv2.waitKey(1)
-    # if key == 27:
-    #     break
 
 cap.release()
 cv2.destroyAllWindows()
